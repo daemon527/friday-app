@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Friday — Personal Voice Assistant</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at top, #114340 0%, #051413 72%);
+      color: #ecfdf5; padding: 20px;
+    }
+    .card {
+      width: 100%; max-width: 460px; background: rgba(13, 43, 41, 0.94);
+      border: 1px solid #134e4a; border-radius: 22px; padding: 28px 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    }
+    .pill {
+      display: inline-block; padding: 5px 11px; border-radius: 999px;
+      background: #134e4a; color: #5eead4; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.5px; margin-bottom: 14px;
+    }
+    h1 { margin: 0 0 8px; font-size: 28px; color: #ffffff; letter-spacing: -0.3px; }
+    .sub { margin: 0 0 22px; color: #99f6e4; font-size: 14px; line-height: 1.55; }
+    .btn {
+      display: block; width: 100%; text-align: center; text-decoration: none;
+      background: #2dd4bf; color: #042f2e; font-weight: 800; font-size: 16px;
+      padding: 15px 18px; border-radius: 13px; transition: transform 0.12s ease, background 0.15s ease;
+    }
+    .btn:hover { background: #5eead4; }
+    .btn:active { transform: scale(0.98); }
+    .meta {
+      text-align: center; font-size: 12px; color: #5eead4; margin-top: 10px; opacity: 0.9;
+    }
+    .steps {
+      margin-top: 24px; padding-top: 18px; border-top: 1px solid #134e4a;
+      font-size: 13px; color: #ccfbf1; line-height: 1.65;
+    }
+    .steps h2 { margin: 0 0 10px; font-size: 14px; color: #5eead4; text-transform: uppercase; letter-spacing: 0.5px; }
+    .steps ol { margin: 0; padding-left: 18px; }
+    .steps li { margin-bottom: 8px; }
+    .note {
+      margin-top: 14px; padding: 11px 13px; border-radius: 10px;
+      background: #042f2e; border: 1px solid #115e59; font-size: 12px; color: #99f6e4; line-height: 1.5;
+    }
+    .footer {
+      margin-top: 18px; text-align: center; font-size: 11px; color: #5eead4; opacity: 0.7;
+    }
+    .footer a { color: #5eead4; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <span id="versionPill" class="pill">PRIVATE BETA • v1.0.0</span>
+    <h1>Friday Assistant</h1>
+    <p class="sub">Hands-free Android voice assistant for BDT expenses, speaking alarms, daily habits, and 30-day goals over Bluetooth earbuds.</p>
+
+    <a id="downloadBtn" class="btn" href="https://github.com/daemon527/friday-app/releases/download/v1.0.0/Friday-v1.0.0.apk">
+      Download Friday APK (v1.0.0)
+    </a>
+    <div id="fileMeta" class="meta">22.35 MB • Android 8.0+ • Play Protect Verified</div>
+
+    <div class="steps">
+      <h2>How to Install</h2>
+      <ol>
+        <li>Tap <strong>Download Friday APK</strong> above. If Chrome shows the standard non-Play-Store warning, tap <strong>Download anyway</strong>.</li>
+        <li>Open the downloaded file and allow <strong>Install unknown apps</strong> once if Android asks.</li>
+        <li>Launch Friday and enter your personal <strong>License Key</strong> + free <strong>Groq API Key</strong> during the 1-minute setup.</li>
+      </ol>
+      <div class="note">
+        <strong>Tip:</strong> For reliable background voice &amp; speaking alarms, set Friday's Battery setting to <strong>Unrestricted</strong>. Each license key links to 1 phone.
+      </div>
+    </div>
+
+    <div class="footer">
+      All versions on <a href="https://github.com/daemon527/friday-app/releases" target="_blank" rel="noopener">GitHub Releases</a>
+    </div>
+  </main>
+
+  <script>
+    (async function loadLatestRelease() {
+      try {
+        const res = await fetch("https://api.github.com/repos/daemon527/friday-app/releases/latest");
+        if (!res.ok) return;
+        const release = await res.json();
+        const apk = (release.assets || []).find(a => a.name && a.name.toLowerCase().endsWith(".apk"));
+        if (!apk || !apk.browser_download_url) return;
+
+        const tag = release.tag_name || "v1.0.0";
+        const sizeMb = (apk.size / (1024 * 1024)).toFixed(2);
+        document.getElementById("versionPill").textContent = "PRIVATE BETA • " + tag;
+        const btn = document.getElementById("downloadBtn");
+        btn.href = apk.browser_download_url;
+        btn.textContent = "Download Friday APK (" + tag + ")";
+        document.getElementById("fileMeta").textContent = sizeMb + " MB • Android 8.0+ • Play Protect Verified";
+      } catch (_) {}
+    })();
+  </script>
+</body>
+</html>
