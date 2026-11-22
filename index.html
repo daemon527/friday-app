@@ -3,82 +3,996 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Friday — Personal Voice Assistant</title>
+  <title>Friday — Hands-Free Android Voice Assistant</title>
+  <meta name="description" content="Hands-free Android voice assistant for BDT expenses, speaking alarms, daily habits, and 30-day goals over Bluetooth earbuds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    :root {
+      --bg: #f4f4f0;
+      --surface: #ffffff;
+      --surface-soft: #fafaf7;
+      --ink: #111113;
+      --ink-muted: #55555e;
+      --ink-subtle: #7e7e88;
+      --border: rgba(17, 17, 19, 0.09);
+      --border-strong: rgba(17, 17, 19, 0.16);
+      --accent: #e5481f;
+      --accent-soft: rgba(229, 72, 31, 0.1);
+      --ok: #15803d;
+      --ok-soft: rgba(21, 128, 61, 0.1);
+      --phone-bg: #101114;
+      --phone-card: #1a1c21;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --shadow-sm: 0 2px 8px rgba(17, 17, 19, 0.04);
+      --shadow-lg: 0 28px 64px -16px rgba(17, 17, 19, 0.18), 0 8px 20px -8px rgba(17, 17, 19, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      background: radial-gradient(circle at top, #114340 0%, #051413 72%);
-      color: #ecfdf5; padding: 20px;
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      background-image: radial-gradient(rgba(17, 17, 19, 0.055) 1px, transparent 1px);
+      background-size: 24px 24px;
+      color: var(--ink);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
     }
-    .card {
-      width: 100%; max-width: 460px; background: rgba(13, 43, 41, 0.94);
-      border: 1px solid #134e4a; border-radius: 22px; padding: 28px 24px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+
+    .mono {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
     }
-    .pill {
-      display: inline-block; padding: 5px 11px; border-radius: 999px;
-      background: #134e4a; color: #5eead4; font-size: 12px; font-weight: 700;
-      letter-spacing: 0.5px; margin-bottom: 14px;
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
-    h1 { margin: 0 0 8px; font-size: 28px; color: #ffffff; letter-spacing: -0.3px; }
-    .sub { margin: 0 0 22px; color: #99f6e4; font-size: 14px; line-height: 1.55; }
-    .btn {
-      display: block; width: 100%; text-align: center; text-decoration: none;
-      background: #2dd4bf; color: #042f2e; font-weight: 800; font-size: 16px;
-      padding: 15px 18px; border-radius: 13px; transition: transform 0.12s ease, background 0.15s ease;
+
+    /* Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(244, 244, 240, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
     }
-    .btn:hover { background: #5eead4; }
-    .btn:active { transform: scale(0.98); }
-    .meta {
-      text-align: center; font-size: 12px; color: #5eead4; margin-top: 10px; opacity: 0.9;
+
+    .nav-inner {
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
-    .steps {
-      margin-top: 24px; padding-top: 18px; border-top: 1px solid #134e4a;
-      font-size: 13px; color: #ccfbf1; line-height: 1.65;
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.4px;
     }
-    .steps h2 { margin: 0 0 10px; font-size: 14px; color: #5eead4; text-transform: uppercase; letter-spacing: 0.5px; }
-    .steps ol { margin: 0; padding-left: 18px; }
-    .steps li { margin-bottom: 8px; }
-    .note {
-      margin-top: 14px; padding: 11px 13px; border-radius: 10px;
-      background: #042f2e; border: 1px solid #115e59; font-size: 12px; color: #99f6e4; line-height: 1.5;
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: var(--ink);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 10px rgba(17, 17, 19, 0.16);
     }
-    .footer {
-      margin-top: 18px; text-align: center; font-size: 11px; color: #5eead4; opacity: 0.7;
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
     }
-    .footer a { color: #5eead4; text-decoration: underline; }
+
+    .nav-links a.text-link {
+      text-decoration: none;
+      color: var(--ink-muted);
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a.text-link:hover {
+      color: var(--ink);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      background: var(--ink);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 16px;
+      border-radius: 999px;
+      transition: transform 0.12s ease, background 0.15s ease;
+    }
+
+    .nav-cta:hover {
+      background: #27272c;
+    }
+
+    .nav-cta:active {
+      transform: scale(0.97);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 64px 0 56px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 22px;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    h1 {
+      font-size: clamp(38px, 5.2vw, 58px);
+      line-height: 1.04;
+      letter-spacing: -1.8px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--ink-muted);
+      max-width: 500px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      background: var(--ink);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px 26px;
+      border-radius: 14px;
+      box-shadow: 0 12px 26px -8px rgba(17, 17, 19, 0.35);
+      transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background: #232329;
+      transform: translateY(-1px);
+      box-shadow: 0 16px 32px -8px rgba(17, 17, 19, 0.42);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--border-strong);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 15px 20px;
+      border-radius: 14px;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-soft);
+      border-color: rgba(17, 17, 19, 0.3);
+    }
+
+    .file-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      font-size: 12.5px;
+      color: var(--ink-subtle);
+      margin-bottom: 28px;
+    }
+
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: 10px;
+    }
+
+    .trust-pill svg {
+      color: var(--ok);
+      flex-shrink: 0;
+    }
+
+    /* Interactive Phone Mockup */
+    .stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .phone-frame {
+      width: 100%;
+      max-width: 344px;
+      background: var(--phone-bg);
+      border-radius: 40px;
+      padding: 14px;
+      box-shadow: var(--shadow-lg), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+      color: #f4f4f6;
+      position: relative;
+    }
+
+    .phone-screen {
+      background: #141519;
+      border-radius: 28px;
+      padding: 18px 18px 20px;
+      min-height: 416px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .phone-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #9ca3af;
+      margin-bottom: 18px;
+    }
+
+    .bt-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #e4e4e7;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .bt-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    .voice-box {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .voice-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #a1a1aa;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .wave {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 16px;
+    }
+
+    .wave span {
+      width: 3px;
+      border-radius: 3px;
+      background: var(--accent);
+      animation: eq 1.1s ease-in-out infinite;
+    }
+
+    .wave span:nth-child(1) { height: 6px; animation-delay: 0s; }
+    .wave span:nth-child(2) { height: 14px; animation-delay: 0.15s; }
+    .wave span:nth-child(3) { height: 10px; animation-delay: 0.3s; }
+    .wave span:nth-child(4) { height: 16px; animation-delay: 0.45s; }
+    .wave span:nth-child(5) { height: 7px; animation-delay: 0.6s; }
+
+    @keyframes eq {
+      0%, 100% { transform: scaleY(0.45); opacity: 0.7; }
+      50% { transform: scaleY(1); opacity: 1; }
+    }
+
+    .spoken-quote {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+      min-height: 44px;
+      transition: opacity 0.2s ease;
+    }
+
+    .action-card {
+      background: var(--phone-card);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 18px;
+      padding: 16px;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .action-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .action-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(229, 72, 31, 0.16);
+      color: #ff8c6b;
+      letter-spacing: 0.3px;
+    }
+
+    .action-badge {
+      font-size: 11px;
+      color: #4ade80;
+      font-weight: 600;
+    }
+
+    .action-main {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.4px;
+      margin-bottom: 4px;
+    }
+
+    .action-sub {
+      font-size: 12.5px;
+      color: #a1a1aa;
+      margin-bottom: 12px;
+    }
+
+    .reply-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      font-size: 12px;
+      color: #d4d4d8;
+    }
+
+    .phone-footer {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #71717a;
+    }
+
+    .demo-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .demo-pill {
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--ink-muted);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .demo-pill:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .demo-pill.active {
+      background: var(--ink);
+      color: #ffffff;
+      border-color: var(--ink);
+    }
+
+    /* Sections */
+    section.block {
+      padding: 52px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .section-kicker {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      color: var(--ink);
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-strong);
+    }
+
+    .icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+
+    .feature-card p {
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      line-height: 1.55;
+    }
+
+    /* Install Guide */
+    .install-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .step-item {
+      padding-top: 16px;
+      border-top: 2px solid var(--bg);
+      position: relative;
+    }
+
+    .step-num {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .step-item h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .step-item p {
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    .notice-bar {
+      margin-top: 28px;
+      padding: 16px 18px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--ink-muted);
+      line-height: 1.55;
+    }
+
+    .notice-bar strong {
+      color: var(--ink);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0 40px;
+      margin-top: 24px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--ink-subtle);
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--ink);
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+      .hero {
+        padding: 40px 0 36px;
+      }
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 18px;
+      }
+      .nav-links a.text-link {
+        display: none;
+      }
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .install-panel {
+        padding: 22px 18px;
+      }
+    }
   </style>
 </head>
 <body>
-  <main class="card">
-    <span id="versionPill" class="pill">PRIVATE BETA • v1.0.0</span>
-    <h1>Friday Assistant</h1>
-    <p class="sub">Hands-free Android voice assistant for BDT expenses, speaking alarms, daily habits, and 30-day goals over Bluetooth earbuds.</p>
+  <header>
+    <div class="container nav-inner">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="9" width="3" height="6" rx="1.5" fill="#ffffff" />
+            <rect x="10.5" y="4" width="3" height="16" rx="1.5" fill="#e5481f" />
+            <rect x="17" y="7" width="3" height="10" rx="1.5" fill="#ffffff" />
+          </svg>
+        </span>
+        Friday
+      </a>
+      <nav class="nav-links">
+        <a class="text-link" href="#features">Features</a>
+        <a class="text-link" href="#install">Install Guide</a>
+        <a id="navDownloadBtn" class="nav-cta" href="https://github.com/daemon527/friday-app/releases/download/v1.0.0/Friday-v1.0.0.apk">
+          <span id="navVersionText">Get v1.0.0</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12m0 0l-5-5m5 5l5-5M5 20h14" />
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </header>
 
-    <a id="downloadBtn" class="btn" href="https://github.com/daemon527/friday-app/releases/download/v1.0.0/Friday-v1.0.0.apk">
-      Download Friday APK (v1.0.0)
-    </a>
-    <div id="fileMeta" class="meta">22.35 MB • Android 8.0+ • Play Protect Verified</div>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="live-dot"></span>
+            <span id="versionPill" class="mono">PRIVATE BETA · v1.0.0</span>
+          </div>
 
-    <div class="steps">
-      <h2>How to Install</h2>
-      <ol>
-        <li>Tap <strong>Download Friday APK</strong> above. If Chrome shows the standard non-Play-Store warning, tap <strong>Download anyway</strong>.</li>
-        <li>Open the downloaded file and allow <strong>Install unknown apps</strong> once if Android asks.</li>
-        <li>Launch Friday and enter your personal <strong>License Key</strong> + free <strong>Groq API Key</strong> during the 1-minute setup.</li>
-      </ol>
-      <div class="note">
-        <strong>Tip:</strong> For reliable background voice &amp; speaking alarms, set Friday's Battery setting to <strong>Unrestricted</strong>. Each license key links to 1 phone.
+          <h1>Speak once.<br />Everything’s logged.</h1>
+
+          <p class="hero-sub">
+            A fast, hands-free Android voice assistant built for daily life—log BDT expenses, set speaking alarms, and track 30-day goals straight from your Bluetooth earbuds.
+          </p>
+
+          <div class="cta-row">
+            <a id="downloadBtn" class="btn-primary" href="https://github.com/daemon527/friday-app/releases/download/v1.0.0/Friday-v1.0.0.apk">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span id="downloadBtnText">Download Friday APK (v1.0.0)</span>
+            </a>
+            <a class="btn-secondary" href="#install">How to install</a>
+          </div>
+
+          <div id="fileMeta" class="file-meta mono">
+            <span>22.35 MB</span>
+            <span>·</span>
+            <span>Android 8.0+</span>
+            <span>·</span>
+            <span>Direct Signed APK</span>
+          </div>
+
+          <div class="trust-strip">
+            <span class="trust-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              Play Protect Verified
+            </span>
+            <span class="trust-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              Encrypted Local DB
+            </span>
+            <span class="trust-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              Invite-Only Access
+            </span>
+          </div>
+        </div>
+
+        <div class="stage">
+          <div class="phone-frame" aria-label="Friday voice assistant preview">
+            <div class="phone-screen">
+              <div>
+                <div class="phone-top">
+                  <span class="mono">9:41</span>
+                  <span class="bt-chip">
+                    <span class="bt-dot"></span>
+                    Earbuds · HD Audio
+                  </span>
+                </div>
+
+                <div class="voice-box">
+                  <div class="voice-label">
+                    <span class="mono">Captured Voice</span>
+                    <div class="wave" aria-hidden="true">
+                      <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                  </div>
+                  <div id="demoQuote" class="spoken-quote">“I spent 50 taka on rickshaw fare”</div>
+                </div>
+
+                <div id="demoCard" class="action-card">
+                  <div class="action-header">
+                    <span id="demoTag" class="action-tag mono">EXPENSE</span>
+                    <span class="action-badge mono">✓ Saved</span>
+                  </div>
+                  <div id="demoMain" class="action-main">৳ 50 · Transport</div>
+                  <div id="demoSub" class="action-sub">Note: Rickshaw fare · Today</div>
+                  <div class="reply-line">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e5481f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                    </svg>
+                    <span id="demoReply">“Added 50 taka expense on Transport.”</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="phone-footer mono">
+                <span>Friday Cloud</span>
+                <span>Double-tap to speak</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-switcher" role="tablist" aria-label="Try example voice commands">
+            <button class="demo-pill active" type="button" data-demo="expense">৳ Expense</button>
+            <button class="demo-pill" type="button" data-demo="alarm">Speaking Alarm</button>
+            <button class="demo-pill" type="button" data-demo="goal">30-Day Goal</button>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="footer">
-      All versions on <a href="https://github.com/daemon527/friday-app/releases" target="_blank" rel="noopener">GitHub Releases</a>
-    </div>
+    <section id="features" class="block">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker mono">Capabilities</div>
+            <h2 class="section-title">Designed for real-world speed.</h2>
+          </div>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="icon-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+              </svg>
+            </div>
+            <h3>Earbuds-First Control</h3>
+            <p>Double-tap your Bluetooth earbuds to start listening without unlocking your phone, with crisp HD stereo voice replies.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+            </div>
+            <h3>Built for Taka (৳)</h3>
+            <p>Understands everyday local spending—rickshaw, CNG, groceries, tea—and logs categorized BDT expenses and income automatically.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="13" r="8" />
+                <path d="M12 9v4l2 2" />
+                <path d="M5 3L2 6" />
+                <path d="M22 6l-3-3" />
+              </svg>
+            </div>
+            <h3>Speaking Alarms &amp; Goals</h3>
+            <p>Set voice reminders that announce your task out loud when due, alongside daily habits and 30-day streak tracking.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <h3>Private &amp; Encrypted</h3>
+            <p>Your history stays encrypted right on your phone with SQLCipher, backed by one-tap encrypted export and restore.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="install" class="block">
+      <div class="container">
+        <div class="install-panel">
+          <div class="section-kicker mono">Quick Setup</div>
+          <h2 class="section-title">Install in under a minute.</h2>
+
+          <div class="steps-grid">
+            <div class="step-item">
+              <span class="step-num mono">01 / DOWNLOAD</span>
+              <h3>Get the signed APK</h3>
+              <p>Tap <strong>Download Friday APK</strong> above. Because this private beta is distributed directly outside the Play Store, tap <strong>Download anyway</strong> if Chrome shows its standard notice.</p>
+            </div>
+
+            <div class="step-item">
+              <span class="step-num mono">02 / INSTALL</span>
+              <h3>Allow installation once</h3>
+              <p>Open the downloaded file from your notifications bar and enable <strong>Install unknown apps</strong> for Chrome when prompted. The release is signed and passes Google Play Protect.</p>
+            </div>
+
+            <div class="step-item">
+              <span class="step-num mono">03 / ACTIVATE</span>
+              <h3>Enter your keys</h3>
+              <p>Launch Friday and follow the short setup wizard using your personal <strong>License Key</strong> and free <strong>Groq API Key</strong>. Future updates install directly over the app without losing data.</p>
+            </div>
+          </div>
+
+          <div class="notice-bar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e5481f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <div>
+              <strong>Recommended for Xiaomi, Realme, Oppo, Vivo &amp; OnePlus:</strong> Set Friday’s Battery mode to <strong>Unrestricted</strong> in Android App Info so speaking alarms and background earbud listening stay instant. Each license key links to 1 phone.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
+  <footer>
+    <div class="container footer-inner">
+      <div>Friday Private Beta · Built by Jubair Islam Saadi</div>
+      <div class="footer-links">
+        <a href="https://github.com/daemon527/friday-app/releases" target="_blank" rel="noopener">All Releases</a>
+        <a id="footerDirectLink" href="https://github.com/daemon527/friday-app/releases/download/v1.0.0/Friday-v1.0.0.apk">Direct APK</a>
+      </div>
+    </div>
+  </footer>
+
   <script>
+    const demos = {
+      expense: {
+        quote: "“I spent 50 taka on rickshaw fare”",
+        tag: "EXPENSE",
+        main: "৳ 50 · Transport",
+        sub: "Note: Rickshaw fare · Today",
+        reply: "“Added 50 taka expense on Transport.”"
+      },
+      alarm: {
+        quote: "“Remind me to submit my report at 7 PM”",
+        tag: "SPEAKING ALARM",
+        main: "Submit my report",
+        sub: "Today at 7:00 PM · Voice Alert",
+        reply: "“Reminder set for submit my report, 7 PM.”"
+      },
+      goal: {
+        quote: "“Start a 30-day goal to read 20 pages daily”",
+        tag: "30-DAY GOAL",
+        main: "Read 20 pages daily",
+        sub: "Day 1 of 30 · Daily Habit Active",
+        reply: "“Started 30 day goal, daily habit created.”"
+      }
+    };
+
+    const buttons = document.querySelectorAll(".demo-pill");
+    const quoteEl = document.getElementById("demoQuote");
+    const tagEl = document.getElementById("demoTag");
+    const mainEl = document.getElementById("demoMain");
+    const subEl = document.getElementById("demoSub");
+    const replyEl = document.getElementById("demoReply");
+    const cardEl = document.getElementById("demoCard");
+
+    function showDemo(key) {
+      const d = demos[key];
+      if (!d) return;
+      buttons.forEach(b => b.classList.toggle("active", b.dataset.demo === key));
+      quoteEl.style.opacity = "0.25";
+      cardEl.style.opacity = "0.25";
+      setTimeout(() => {
+        quoteEl.textContent = d.quote;
+        tagEl.textContent = d.tag;
+        mainEl.textContent = d.main;
+        subEl.textContent = d.sub;
+        replyEl.textContent = d.reply;
+        quoteEl.style.opacity = "1";
+        cardEl.style.opacity = "1";
+      }, 130);
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => showDemo(btn.dataset.demo));
+    });
+
     (async function loadLatestRelease() {
       try {
         const res = await fetch("https://api.github.com/repos/daemon527/friday-app/releases/latest");
@@ -89,11 +1003,16 @@
 
         const tag = release.tag_name || "v1.0.0";
         const sizeMb = (apk.size / (1024 * 1024)).toFixed(2);
-        document.getElementById("versionPill").textContent = "PRIVATE BETA • " + tag;
-        const btn = document.getElementById("downloadBtn");
-        btn.href = apk.browser_download_url;
-        btn.textContent = "Download Friday APK (" + tag + ")";
-        document.getElementById("fileMeta").textContent = sizeMb + " MB • Android 8.0+ • Play Protect Verified";
+        const url = apk.browser_download_url;
+
+        document.getElementById("versionPill").textContent = "PRIVATE BETA · " + tag;
+        document.getElementById("navVersionText").textContent = "Get " + tag;
+        document.getElementById("downloadBtnText").textContent = "Download Friday APK (" + tag + ")";
+        document.getElementById("downloadBtn").href = url;
+        document.getElementById("navDownloadBtn").href = url;
+        document.getElementById("footerDirectLink").href = url;
+        document.getElementById("fileMeta").innerHTML =
+          "<span>" + sizeMb + " MB</span><span>·</span><span>Android 8.0+</span><span>·</span><span>Direct Signed APK</span>";
       } catch (_) {}
     })();
   </script>
