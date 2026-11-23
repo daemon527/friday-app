@@ -3,31 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Friday — Hands-Free Android Voice Assistant</title>
-  <meta name="description" content="Hands-free Android voice assistant for BDT expenses, speaking alarms, daily habits, and 30-day goals over Bluetooth earbuds." />
+  <title>Friday — Hands-Free Android Voice Assistant (English &amp; বাংলা)</title>
+  <meta name="description" content="Hands-free bilingual Android voice assistant &amp; adaptive life coach for Bangladesh. Log BDT expenses, set speaking alarms, and track habits straight from your Bluetooth earbuds." />
+  <meta name="theme-color" content="#0F1115" />
+
+  <!-- Instant 3-Bar Friday Logo Favicon (Works in Browser Tabs & Bookmarks) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230F1115'/%3E%3Crect x='13' y='24' width='8' height='16' rx='4' fill='%23F5F5F0'/%3E%3Crect x='28' y='11' width='8' height='42' rx='4' fill='%23FF5500'/%3E%3Crect x='43' y='18' width='8' height='28' rx='4' fill='%23F5F5F0'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="og-icon.png" />
+
+  <!-- Open Graph / WhatsApp / Messenger / Facebook Link Preview Card -->
+  <!-- Upload a 1200x630 PNG named og-card.png next to index.html for rich link previews -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Friday Official" />
+  <meta property="og:url" content="https://daemon527.github.io/friday-app/" />
+  <meta property="og:title" content="Friday — Hands-Free Android Voice Assistant" />
+  <meta property="og:description" content="Speak once in Bangla or English. Log ৳ Taka expenses, set speaking alarms, and track daily habits hands-free over Bluetooth earbuds. Verified Signed APK." />
+  <meta property="og:image" content="https://daemon527.github.io/friday-app/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- X / Twitter / Discord Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Friday — Hands-Free Android Voice Assistant" />
+  <meta name="twitter:description" content="Bilingual Bangla &amp; English voice assistant for BDT expenses, speaking alarms, and adaptive life coaching. Private &amp; encrypted." />
+  <meta name="twitter:image" content="https://daemon527.github.io/friday-app/og-card.png" />
+
+  <!-- Google Search Structured Data (App Identity & Trust Signals) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Friday Personal Assistant",
+    "operatingSystem": "Android 8.0+",
+    "applicationCategory": "ProductivityApplication",
+    "softwareVersion": "1.1.1",
+    "author": {
+      "@type": "Person",
+      "name": "Jubair Islam Saadi"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BDT"
+    },
+    "downloadUrl": "https://github.com/daemon527/friday-app/releases/latest"
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <style>
     :root {
-      --bg: #f4f4f0;
-      --surface: #ffffff;
-      --surface-soft: #fafaf7;
-      --ink: #111113;
-      --ink-muted: #55555e;
-      --ink-subtle: #7e7e88;
-      --border: rgba(17, 17, 19, 0.09);
-      --border-strong: rgba(17, 17, 19, 0.16);
-      --accent: #e5481f;
-      --accent-soft: rgba(229, 72, 31, 0.1);
-      --ok: #15803d;
-      --ok-soft: rgba(21, 128, 61, 0.1);
-      --phone-bg: #101114;
-      --phone-card: #1a1c21;
+      --bg: #F5F5F0;
+      --surface: #FFFFFF;
+      --surface-soft: #FAF9F5;
+      --obsidian: #0F1115;
+      --obsidian-card: #171A21;
+      --obsidian-border: rgba(255, 255, 255, 0.09);
+      --ink: #0F1115;
+      --ink-muted: #52555E;
+      --ink-subtle: #7A7D87;
+      --border: rgba(15, 17, 21, 0.09);
+      --border-strong: rgba(15, 17, 21, 0.18);
+      --accent: #FF5500;
+      --accent-hover: #E64A00;
+      --accent-soft: rgba(255, 85, 0, 0.11);
+      --ok: #15803D;
+      --ok-bright: #4ADE80;
+      --ok-soft: rgba(21, 128, 61, 0.11);
       --radius-lg: 24px;
       --radius-md: 16px;
-      --shadow-sm: 0 2px 8px rgba(17, 17, 19, 0.04);
-      --shadow-lg: 0 28px 64px -16px rgba(17, 17, 19, 0.18), 0 8px 20px -8px rgba(17, 17, 19, 0.08);
+      --shadow-sm: 0 2px 10px rgba(15, 17, 21, 0.04);
+      --shadow-lg: 0 32px 72px -18px rgba(15, 17, 21, 0.28), 0 10px 24px -10px rgba(15, 17, 21, 0.12);
     }
 
     * {
@@ -41,13 +90,19 @@
     }
 
     body {
-      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Plus Jakarta Sans", "Hind Siliguri", -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg);
-      background-image: radial-gradient(rgba(17, 17, 19, 0.055) 1px, transparent 1px);
-      background-size: 24px 24px;
+      background-image:
+        radial-gradient(circle at 84% 10%, rgba(255, 85, 0, 0.075), transparent 36%),
+        radial-gradient(rgba(15, 17, 21, 0.055) 1px, transparent 1px);
+      background-size: 100% 100%, 24px 24px;
       color: var(--ink);
-      line-height: 1.55;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+    }
+
+    body.lang-bn {
+      line-height: 1.72;
     }
 
     .mono {
@@ -65,19 +120,19 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(244, 244, 240, 0.82);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      z-index: 60;
+      background: rgba(245, 245, 240, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
     .nav-inner {
-      height: 68px;
+      height: 70px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 14px;
     }
 
     .brand {
@@ -87,24 +142,39 @@
       text-decoration: none;
       color: var(--ink);
       font-weight: 800;
-      font-size: 18px;
-      letter-spacing: -0.4px;
+      font-size: 19px;
+      letter-spacing: -0.45px;
     }
 
     .brand-mark {
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      background: var(--ink);
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--obsidian);
       display: grid;
       place-items: center;
-      box-shadow: 0 4px 10px rgba(17, 17, 19, 0.16);
+      box-shadow: 0 6px 14px rgba(15, 17, 21, 0.18);
+      flex-shrink: 0;
+    }
+
+    .verified-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ok);
+      background: var(--ok-soft);
+      border: 1px solid rgba(21, 128, 61, 0.2);
+      padding: 3px 8px;
+      border-radius: 999px;
+      letter-spacing: 0.1px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
     }
 
     .nav-links a.text-link {
@@ -119,22 +189,52 @@
       color: var(--ink);
     }
 
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--ink-muted);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      line-height: 1.3;
+      transition: all 0.15s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--obsidian);
+      color: #FFFFFF;
+    }
+
     .nav-cta {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       text-decoration: none;
-      background: var(--ink);
-      color: #ffffff;
+      background: var(--accent);
+      color: #FFFFFF;
       font-size: 13px;
       font-weight: 700;
       padding: 9px 16px;
       border-radius: 999px;
+      box-shadow: 0 6px 16px -4px rgba(255, 85, 0, 0.45);
       transition: transform 0.12s ease, background 0.15s ease;
     }
 
     .nav-cta:hover {
-      background: #27272c;
+      background: var(--accent-hover);
     }
 
     .nav-cta:active {
@@ -143,7 +243,7 @@
 
     /* Hero */
     .hero {
-      padding: 64px 0 56px;
+      padding: 58px 0 48px;
     }
 
     .hero-grid {
@@ -157,7 +257,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 12px;
+      padding: 6px 13px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 999px;
@@ -165,7 +265,7 @@
       font-weight: 600;
       color: var(--ink-muted);
       box-shadow: var(--shadow-sm);
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .live-dot {
@@ -177,28 +277,36 @@
     }
 
     h1 {
-      font-size: clamp(38px, 5.2vw, 58px);
-      line-height: 1.04;
-      letter-spacing: -1.8px;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.07;
+      letter-spacing: -1.7px;
       font-weight: 800;
       color: var(--ink);
       margin-bottom: 18px;
     }
 
+    body.lang-bn h1 {
+      letter-spacing: -0.4px;
+      line-height: 1.22;
+    }
+
+    .accent-word {
+      color: var(--accent);
+    }
+
     .hero-sub {
-      font-size: 17px;
+      font-size: 16.5px;
       color: var(--ink-muted);
-      max-width: 500px;
-      margin-bottom: 30px;
-      line-height: 1.6;
+      max-width: 515px;
+      margin-bottom: 28px;
     }
 
     .cta-row {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
     .btn-primary {
@@ -207,24 +315,34 @@
       justify-content: center;
       gap: 10px;
       text-decoration: none;
-      background: var(--ink);
-      color: #ffffff;
+      background: var(--obsidian);
+      color: #FFFFFF;
       font-size: 15px;
       font-weight: 700;
       padding: 16px 26px;
       border-radius: 14px;
-      box-shadow: 0 12px 26px -8px rgba(17, 17, 19, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 14px 30px -10px rgba(15, 17, 21, 0.42);
       transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
     }
 
     .btn-primary:hover {
-      background: #232329;
+      background: #1C2029;
       transform: translateY(-1px);
-      box-shadow: 0 16px 32px -8px rgba(17, 17, 19, 0.42);
+      box-shadow: 0 18px 36px -10px rgba(15, 17, 21, 0.5);
     }
 
     .btn-primary:active {
       transform: translateY(0) scale(0.98);
+    }
+
+    .btn-primary .dl-badge {
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
     }
 
     .btn-secondary {
@@ -244,23 +362,23 @@
 
     .btn-secondary:hover {
       background: var(--surface-soft);
-      border-color: rgba(17, 17, 19, 0.3);
+      border-color: rgba(15, 17, 21, 0.34);
     }
 
     .file-meta {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 14px;
-      font-size: 12.5px;
+      gap: 10px;
+      font-size: 12px;
       color: var(--ink-subtle);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .trust-strip {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
 
     .trust-pill {
@@ -270,9 +388,9 @@
       font-size: 12.5px;
       font-weight: 600;
       color: var(--ink-muted);
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.8);
       border: 1px solid var(--border);
-      padding: 7px 12px;
+      padding: 7px 11px;
       border-radius: 10px;
     }
 
@@ -287,29 +405,40 @@
       flex-direction: column;
       align-items: center;
       gap: 16px;
+      position: relative;
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 85, 0, 0.2), transparent 68%);
+      top: 40px;
+      z-index: -1;
+      pointer-events: none;
     }
 
     .phone-frame {
       width: 100%;
-      max-width: 344px;
-      background: var(--phone-bg);
+      max-width: 352px;
+      background: var(--obsidian);
       border-radius: 40px;
-      padding: 14px;
+      padding: 13px;
       box-shadow: var(--shadow-lg), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-      color: #f4f4f6;
-      position: relative;
+      color: #F5F5F0;
     }
 
     .phone-screen {
-      background: #141519;
+      background: #13161C;
       border-radius: 28px;
-      padding: 18px 18px 20px;
-      min-height: 416px;
+      padding: 18px;
+      min-height: 432px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       border: 1px solid rgba(255, 255, 255, 0.06);
-      overflow: hidden;
     }
 
     .phone-top {
@@ -317,18 +446,19 @@
       align-items: center;
       justify-content: space-between;
       font-size: 11px;
-      color: #9ca3af;
-      margin-bottom: 18px;
+      color: #9CA3AF;
+      margin-bottom: 16px;
     }
 
     .bt-chip {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.06);
-      color: #e4e4e7;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E4E4E7;
       font-size: 11px;
       font-weight: 600;
     }
@@ -337,24 +467,25 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #22c55e;
+      background: var(--ok-bright);
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.7);
     }
 
     .voice-box {
       background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
+      padding: 15px;
+      margin-bottom: 13px;
     }
 
     .voice-label {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 11px;
-      color: #a1a1aa;
-      margin-bottom: 10px;
+      font-size: 10.5px;
+      color: #A1A1AA;
+      margin-bottom: 9px;
       text-transform: uppercase;
       letter-spacing: 0.6px;
     }
@@ -380,89 +511,92 @@
     .wave span:nth-child(5) { height: 7px; animation-delay: 0.6s; }
 
     @keyframes eq {
-      0%, 100% { transform: scaleY(0.45); opacity: 0.7; }
+      0%, 100% { transform: scaleY(0.45); opacity: 0.65; }
       50% { transform: scaleY(1); opacity: 1; }
     }
 
     .spoken-quote {
-      font-size: 16px;
+      font-size: 15.5px;
       font-weight: 700;
-      color: #ffffff;
-      line-height: 1.35;
-      letter-spacing: -0.2px;
-      min-height: 44px;
-      transition: opacity 0.2s ease;
+      color: #FFFFFF;
+      line-height: 1.42;
+      min-height: 46px;
+      transition: opacity 0.18s ease;
     }
 
     .action-card {
-      background: var(--phone-card);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: var(--obsidian-card);
+      border: 1px solid var(--obsidian-border);
       border-radius: 18px;
-      padding: 16px;
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      padding: 15px;
+      transition: opacity 0.18s ease;
     }
 
     .action-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
+      margin-bottom: 9px;
+      gap: 8px;
     }
 
     .action-tag {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       padding: 4px 8px;
       border-radius: 6px;
-      background: rgba(229, 72, 31, 0.16);
-      color: #ff8c6b;
-      letter-spacing: 0.3px;
+      background: rgba(255, 85, 0, 0.16);
+      color: #FF8C52;
+      letter-spacing: 0.35px;
     }
 
     .action-badge {
       font-size: 11px;
-      color: #4ade80;
+      color: var(--ok-bright);
       font-weight: 600;
     }
 
     .action-main {
-      font-size: 20px;
+      font-size: 18.5px;
       font-weight: 800;
-      color: #ffffff;
-      letter-spacing: -0.4px;
+      color: #FFFFFF;
+      letter-spacing: -0.3px;
       margin-bottom: 4px;
+      line-height: 1.3;
     }
 
     .action-sub {
       font-size: 12.5px;
-      color: #a1a1aa;
+      color: #A1A1AA;
       margin-bottom: 12px;
+      line-height: 1.45;
     }
 
     .reply-line {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 8px;
       padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       font-size: 12px;
-      color: #d4d4d8;
+      color: #D4D4D8;
+      line-height: 1.45;
     }
 
     .phone-footer {
-      margin-top: 16px;
+      margin-top: 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 11px;
-      color: #71717a;
+      color: #71717A;
     }
 
     .demo-switcher {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 8px;
+      gap: 7px;
     }
 
     .demo-pill {
@@ -484,14 +618,14 @@
     }
 
     .demo-pill.active {
-      background: var(--ink);
-      color: #ffffff;
-      border-color: var(--ink);
+      background: var(--obsidian);
+      color: #FFFFFF;
+      border-color: var(--obsidian);
     }
 
     /* Sections */
     section.block {
-      padding: 52px 0;
+      padding: 46px 0;
     }
 
     .section-head {
@@ -500,7 +634,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 16px;
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
     .section-kicker {
@@ -515,7 +649,7 @@
     .section-title {
       font-size: clamp(24px, 3vw, 32px);
       font-weight: 800;
-      letter-spacing: -0.8px;
+      letter-spacing: -0.7px;
       color: var(--ink);
     }
 
@@ -549,7 +683,7 @@
       display: grid;
       place-items: center;
       color: var(--ink);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .feature-card h3 {
@@ -562,7 +696,102 @@
     .feature-card p {
       font-size: 13.5px;
       color: var(--ink-muted);
+    }
+
+    /* Verified Trust & Security Obsidian Card */
+    .security-panel {
+      background: var(--obsidian);
+      color: #F5F5F0;
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .security-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+      margin-bottom: 24px;
+    }
+
+    .security-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.28);
+      color: var(--ok-bright);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .security-panel h2 {
+      font-size: clamp(22px, 2.8vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      color: #FFFFFF;
+      margin-top: 6px;
+    }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .sec-item {
+      background: var(--obsidian-card);
+      border: 1px solid var(--obsidian-border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .sec-item h3 {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sec-item p {
+      font-size: 13px;
+      color: #A1A1AA;
       line-height: 1.55;
+    }
+
+    .verify-bar {
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12.5px;
+      color: #D4D4D8;
+    }
+
+    .verify-bar a {
+      color: #FF8C52;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .verify-bar a:hover {
+      text-decoration: underline;
     }
 
     /* Install Guide */
@@ -584,7 +813,6 @@
     .step-item {
       padding-top: 16px;
       border-top: 2px solid var(--bg);
-      position: relative;
     }
 
     .step-num {
@@ -592,24 +820,23 @@
       font-size: 12px;
       font-weight: 600;
       color: var(--accent);
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
     .step-item h3 {
       font-size: 16px;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
       letter-spacing: -0.2px;
     }
 
     .step-item p {
       font-size: 13.5px;
       color: var(--ink-muted);
-      line-height: 1.6;
     }
 
     .notice-bar {
-      margin-top: 28px;
+      margin-top: 26px;
       padding: 16px 18px;
       background: var(--surface-soft);
       border: 1px solid var(--border);
@@ -619,7 +846,6 @@
       gap: 12px;
       font-size: 13px;
       color: var(--ink-muted);
-      line-height: 1.55;
     }
 
     .notice-bar strong {
@@ -629,8 +855,8 @@
     /* Footer */
     footer {
       border-top: 1px solid var(--border);
-      padding: 28px 0 40px;
-      margin-top: 24px;
+      padding: 28px 0 42px;
+      margin-top: 18px;
     }
 
     .footer-inner {
@@ -641,6 +867,14 @@
       gap: 14px;
       font-size: 13px;
       color: var(--ink-subtle);
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--ink);
+      font-weight: 700;
     }
 
     .footer-links {
@@ -663,34 +897,38 @@
     @media (max-width: 960px) {
       .hero-grid {
         grid-template-columns: 1fr;
-        gap: 44px;
+        gap: 42px;
       }
       .hero {
-        padding: 40px 0 36px;
+        padding: 36px 0 32px;
       }
       .features-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      .security-grid,
       .steps-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 16px;
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
       .container {
         padding: 0 18px;
       }
-      .nav-links a.text-link {
+      .nav-links a.text-link,
+      .verified-chip {
         display: none;
       }
-      .btn-primary, .btn-secondary {
+      .btn-primary,
+      .btn-secondary {
         width: 100%;
         justify-content: center;
       }
       .features-grid {
         grid-template-columns: 1fr;
       }
+      .security-panel,
       .install-panel {
         padding: 22px 18px;
       }
@@ -702,19 +940,31 @@
     <div class="container nav-inner">
       <a class="brand" href="#">
         <span class="brand-mark" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <rect x="4" y="9" width="3" height="6" rx="1.5" fill="#ffffff" />
-            <rect x="10.5" y="4" width="3" height="16" rx="1.5" fill="#e5481f" />
-            <rect x="17" y="7" width="3" height="10" rx="1.5" fill="#ffffff" />
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="9" width="3.2" height="6" rx="1.6" fill="#F5F5F0" />
+            <rect x="10.4" y="4" width="3.2" height="16" rx="1.6" fill="#FF5500" />
+            <rect x="16.8" y="7" width="3.2" height="10" rx="1.6" fill="#F5F5F0" />
           </svg>
         </span>
-        Friday
+        <span>Friday</span>
+        <span class="verified-chip">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+          Official
+        </span>
       </a>
+
       <nav class="nav-links">
-        <a class="text-link" href="#features">Features</a>
-        <a class="text-link" href="#install">Install Guide</a>
-        <a id="navDownloadBtn" class="nav-cta" href="https://github.com/daemon527/friday-app/releases/download/v1.0.0/Friday-v1.0.0.apk">
-          <span id="navVersionText">Get v1.0.0</span>
+        <a class="text-link" href="#features" data-i18n="navFeatures">Features</a>
+        <a class="text-link" href="#security" data-i18n="navSecurity">Security</a>
+        <a class="text-link" href="#install" data-i18n="navInstall">Install</a>
+
+        <div class="lang-toggle" role="group" aria-label="Interface language">
+          <button class="lang-btn active" type="button" data-lang="en">EN</button>
+          <button class="lang-btn" type="button" data-lang="bn">বাংলা</button>
+        </div>
+
+        <a id="navDownloadBtn" class="nav-cta" href="https://github.com/daemon527/friday-app/releases/latest">
+          <span id="navVersionText">Get v1.1.1</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 3v12m0 0l-5-5m5 5l5-5M5 20h14" />
           </svg>
@@ -729,47 +979,48 @@
         <div>
           <div class="eyebrow">
             <span class="live-dot"></span>
-            <span id="versionPill" class="mono">PRIVATE BETA · v1.0.0</span>
+            <span id="versionPill" class="mono">VERIFIED RELEASE · v1.1.1 · EN &amp; বাংলা</span>
           </div>
 
-          <h1>Speak once.<br />Everything’s logged.</h1>
+          <h1 data-i18n="heroTitle">Speak once.<br /><span class="accent-word">Everything’s</span> logged.</h1>
 
-          <p class="hero-sub">
-            A fast, hands-free Android voice assistant built for daily life—log BDT expenses, set speaking alarms, and track 30-day goals straight from your Bluetooth earbuds.
+          <p class="hero-sub" data-i18n="heroSub">
+            A hands-free Bangla &amp; English Android voice assistant and adaptive life coach—log ৳ Taka expenses, set speaking alarms, and track habits straight from your Bluetooth earbuds.
           </p>
 
           <div class="cta-row">
-            <a id="downloadBtn" class="btn-primary" href="https://github.com/daemon527/friday-app/releases/download/v1.0.0/Friday-v1.0.0.apk">
+            <a id="downloadBtn" class="btn-primary" href="https://github.com/daemon527/friday-app/releases/latest">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
-              <span id="downloadBtnText">Download Friday APK (v1.0.0)</span>
+              <span id="downloadBtnText">Download Friday APK</span>
+              <span id="downloadBadge" class="dl-badge mono">v1.1.1</span>
             </a>
-            <a class="btn-secondary" href="#install">How to install</a>
+            <a class="btn-secondary" href="#install" data-i18n="howToInstall">How to install</a>
           </div>
 
           <div id="fileMeta" class="file-meta mono">
-            <span>22.35 MB</span>
-            <span>·</span>
             <span>Android 8.0+</span>
             <span>·</span>
-            <span>Direct Signed APK</span>
+            <span>Signed Release APK</span>
+            <span>·</span>
+            <span>GitHub Verified</span>
           </div>
 
           <div class="trust-strip">
             <span class="trust-pill">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-              Play Protect Verified
+              <span data-i18n="pillSigned">Signed Official APK</span>
             </span>
             <span class="trust-pill">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-              Encrypted Local DB
+              <span data-i18n="pillEncrypted">AES-256 Encrypted DB</span>
             </span>
             <span class="trust-pill">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-              Invite-Only Access
+              <span data-i18n="pillPrivacy">BYOK · Zero Data Training</span>
             </span>
           </div>
         </div>
@@ -782,48 +1033,49 @@
                   <span class="mono">9:41</span>
                   <span class="bt-chip">
                     <span class="bt-dot"></span>
-                    Earbuds · HD Audio
+                    Earbuds · Hands-Free
                   </span>
                 </div>
 
                 <div class="voice-box">
                   <div class="voice-label">
-                    <span class="mono">Captured Voice</span>
+                    <span class="mono" id="demoModeLabel">BILINGUAL VOICE</span>
                     <div class="wave" aria-hidden="true">
                       <span></span><span></span><span></span><span></span><span></span>
                     </div>
                   </div>
-                  <div id="demoQuote" class="spoken-quote">“I spent 50 taka on rickshaw fare”</div>
+                  <div id="demoQuote" class="spoken-quote">“রিকশা ভাড়া ৫০ টাকা আর রাত ৮টায় পড়ার রিমাইন্ডার দাও”</div>
                 </div>
 
                 <div id="demoCard" class="action-card">
                   <div class="action-header">
-                    <span id="demoTag" class="action-tag mono">EXPENSE</span>
+                    <span id="demoTag" class="action-tag mono">2 ACTIONS EXECUTED</span>
                     <span class="action-badge mono">✓ Saved</span>
                   </div>
-                  <div id="demoMain" class="action-main">৳ 50 · Transport</div>
-                  <div id="demoSub" class="action-sub">Note: Rickshaw fare · Today</div>
+                  <div id="demoMain" class="action-main">৳ 50 Transport + 8:00 PM Alarm</div>
+                  <div id="demoSub" class="action-sub">Rickshaw fare logged · Study reminder scheduled for today</div>
                   <div class="reply-line">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e5481f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF5500" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;">
                       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
                       <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
                     </svg>
-                    <span id="demoReply">“Added 50 taka expense on Transport.”</span>
+                    <span id="demoReply">“৫০ টাকা খরচ সেভ করেছি এবং রাত ৮টার রিমাইন্ডার সেট হয়েছে।”</span>
                   </div>
                 </div>
               </div>
 
               <div class="phone-footer mono">
-                <span>Friday Cloud</span>
-                <span>Double-tap to speak</span>
+                <span>Friday AI Brain</span>
+                <span>Double-tap earbuds</span>
               </div>
             </div>
           </div>
 
           <div class="demo-switcher" role="tablist" aria-label="Try example voice commands">
-            <button class="demo-pill active" type="button" data-demo="expense">৳ Expense</button>
+            <button class="demo-pill active" type="button" data-demo="bangla">বাংলা Multi</button>
+            <button class="demo-pill" type="button" data-demo="expense">৳ Expense</button>
             <button class="demo-pill" type="button" data-demo="alarm">Speaking Alarm</button>
-            <button class="demo-pill" type="button" data-demo="goal">30-Day Goal</button>
+            <button class="demo-pill" type="button" data-demo="coach">AI Coach</button>
           </div>
         </div>
       </div>
@@ -833,8 +1085,8 @@
       <div class="container">
         <div class="section-head">
           <div>
-            <div class="section-kicker mono">Capabilities</div>
-            <h2 class="section-title">Designed for real-world speed.</h2>
+            <div class="section-kicker mono" data-i18n="featKicker">Capabilities</div>
+            <h2 class="section-title" data-i18n="featTitle">Built for real-world speed in Bangladesh.</h2>
           </div>
         </div>
 
@@ -846,19 +1098,18 @@
                 <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
               </svg>
             </div>
-            <h3>Earbuds-First Control</h3>
-            <p>Double-tap your Bluetooth earbuds to start listening without unlocking your phone, with crisp HD stereo voice replies.</p>
+            <h3 data-i18n="f1Title">Lock-Screen Earbud Control</h3>
+            <p data-i18n="f1Desc">Double-tap your Bluetooth earbuds to log commands while your phone stays locked in your pocket, with clear voice replies.</p>
           </article>
 
           <article class="feature-card">
             <div class="icon-box">
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="1" x2="12" y2="23" />
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               </svg>
             </div>
-            <h3>Built for Taka (৳)</h3>
-            <p>Understands everyday local spending—rickshaw, CNG, groceries, tea—and logs categorized BDT expenses and income automatically.</p>
+            <h3 data-i18n="f2Title">Full বাংলা &amp; English</h3>
+            <p data-i18n="f2Desc">Speak naturally in Bangladeshi Bangla, English, or mixed Banglish—and run up to 5 actions from a single sentence.</p>
           </article>
 
           <article class="feature-card">
@@ -870,20 +1121,71 @@
                 <path d="M22 6l-3-3" />
               </svg>
             </div>
-            <h3>Speaking Alarms &amp; Goals</h3>
-            <p>Set voice reminders that announce your task out loud when due, alongside daily habits and 30-day streak tracking.</p>
+            <h3 data-i18n="f3Title">Speaking Alarms &amp; Namaz</h3>
+            <p data-i18n="f3Desc">Voice reminders that announce your task out loud when due, alongside BDT budget tracking, daily namaz, and 30-day goals.</p>
           </article>
 
           <article class="feature-card">
             <div class="icon-box">
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                <path d="M12 2a7 7 0 0 1 7 7c0 2.4-1.2 4.5-3 5.7V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.3C6.2 13.5 5 11.4 5 9a7 7 0 0 1 7-7z" />
+                <line x1="9" y1="22" x2="15" y2="22" />
               </svg>
             </div>
-            <h3>Private &amp; Encrypted</h3>
-            <p>Your history stays encrypted right on your phone with SQLCipher, backed by one-tap encrypted export and restore.</p>
+            <h3 data-i18n="f4Title">Adaptive Life Coach</h3>
+            <p data-i18n="f4Desc">Remembers your routine, safe daily budget, and energy clock privately on-device to answer real-life questions in seconds.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="security" class="block">
+      <div class="container">
+        <div class="security-panel">
+          <div class="security-top">
+            <div>
+              <div class="section-kicker mono" data-i18n="secKicker">Trust &amp; Verification</div>
+              <h2 data-i18n="secTitle">Signed, verifiable, and private by architecture.</h2>
+            </div>
+            <div class="security-badge mono">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <polyline points="9 12 11 14 15 10" />
+              </svg>
+              ANTI-TAMPER SIGNED APK
+            </div>
+          </div>
+
+          <div class="security-grid">
+            <div class="sec-item">
+              <h3>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF5500" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                <span data-i18n="s1Title">AES-256 On-Device Vault</span>
+              </h3>
+              <p data-i18n="s1Desc">All expenses, schedules, and learned memories stay encrypted on your phone with SQLCipher AES-256 and Android Hardware Keystore.</p>
+            </div>
+
+            <div class="sec-item">
+              <h3>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF5500" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+                <span data-i18n="s2Title">Official Release Signature Lock</span>
+              </h3>
+              <p data-i18n="s2Desc">Distributed directly from GitHub Releases and verified via APK SHA-256 signature checks so tampered or repacked builds cannot run.</p>
+            </div>
+
+            <div class="sec-item">
+              <h3>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF5500" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
+                <span data-i18n="s3Title">BYOK Privacy Promise</span>
+              </h3>
+              <p data-i18n="s3Desc">Connect your own free Groq API key. Your personal data is never sold, never logged on a middleman database, and never used for AI training.</p>
+            </div>
+          </div>
+
+          <div class="verify-bar mono">
+            <span id="releaseMetaLine">Package: com.example.pocketassistant · Source: github.com/daemon527/friday-app</span>
+            <a id="releaseNotesLink" href="https://github.com/daemon527/friday-app/releases/latest" target="_blank" rel="noopener">Inspect Official GitHub Release →</a>
+          </div>
         </div>
       </div>
     </section>
@@ -891,37 +1193,37 @@
     <section id="install" class="block">
       <div class="container">
         <div class="install-panel">
-          <div class="section-kicker mono">Quick Setup</div>
-          <h2 class="section-title">Install in under a minute.</h2>
+          <div class="section-kicker mono" data-i18n="instKicker">Quick Setup</div>
+          <h2 class="section-title" data-i18n="instTitle">Install in under a minute.</h2>
 
           <div class="steps-grid">
             <div class="step-item">
               <span class="step-num mono">01 / DOWNLOAD</span>
-              <h3>Get the signed APK</h3>
-              <p>Tap <strong>Download Friday APK</strong> above. Because this private beta is distributed directly outside the Play Store, tap <strong>Download anyway</strong> if Chrome shows its standard notice.</p>
+              <h3 data-i18n="st1Title">Get the signed APK</h3>
+              <p data-i18n="st1Desc">Tap <strong>Download Friday APK</strong> above. Because Friday is distributed directly from GitHub Releases outside the Play Store, tap <strong>Download anyway</strong> if Chrome shows its standard APK notice.</p>
             </div>
 
             <div class="step-item">
               <span class="step-num mono">02 / INSTALL</span>
-              <h3>Allow installation once</h3>
-              <p>Open the downloaded file from your notifications bar and enable <strong>Install unknown apps</strong> for Chrome when prompted. The release is signed and passes Google Play Protect.</p>
+              <h3 data-i18n="st2Title">Allow installation once</h3>
+              <p data-i18n="st2Desc">Open the downloaded file and allow <strong>Install unknown apps</strong> for your browser once. Future updates install smoothly over the app while keeping all your encrypted data.</p>
             </div>
 
             <div class="step-item">
               <span class="step-num mono">03 / ACTIVATE</span>
-              <h3>Enter your keys</h3>
-              <p>Launch Friday and follow the short setup wizard using your personal <strong>License Key</strong> and free <strong>Groq API Key</strong>. Future updates install directly over the app without losing data.</p>
+              <h3 data-i18n="st3Title">Complete 4-step wizard</h3>
+              <p data-i18n="st3Desc">Choose English or বাংলা, add your free <strong>Groq API Key</strong>, and tap the launch <strong>Promo Code</strong> (or enter your License Key) on Step 4 to unlock hands-free voice immediately.</p>
             </div>
           </div>
 
           <div class="notice-bar">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e5481f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF5500" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;">
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
-            <div>
-              <strong>Recommended for Xiaomi, Realme, Oppo, Vivo &amp; OnePlus:</strong> Set Friday’s Battery mode to <strong>Unrestricted</strong> in Android App Info so speaking alarms and background earbud listening stay instant. Each license key links to 1 phone.
+            <div data-i18n="batteryTip">
+              <strong>Recommended for Xiaomi, Realme, Oppo, Vivo &amp; OnePlus:</strong> Set Friday’s Battery mode to <strong>Unrestricted</strong> in Android App Info so speaking alarms and background earbud commands stay instant.
             </div>
           </div>
         </div>
@@ -931,40 +1233,145 @@
 
   <footer>
     <div class="container footer-inner">
-      <div>Friday Private Beta · Built by Jubair Islam Saadi</div>
+      <div class="footer-brand">
+        <span class="brand-mark" style="width:24px;height:24px;border-radius:7px;" aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="9" width="3.2" height="6" rx="1.6" fill="#F5F5F0" />
+            <rect x="10.4" y="4" width="3.2" height="16" rx="1.6" fill="#FF5500" />
+            <rect x="16.8" y="7" width="3.2" height="10" rx="1.6" fill="#F5F5F0" />
+          </svg>
+        </span>
+        <span>Friday Personal Assistant · Built by Jubair Islam Saadi</span>
+      </div>
       <div class="footer-links">
         <a href="https://github.com/daemon527/friday-app/releases" target="_blank" rel="noopener">All Releases</a>
-        <a id="footerDirectLink" href="https://github.com/daemon527/friday-app/releases/download/v1.0.0/Friday-v1.0.0.apk">Direct APK</a>
+        <a id="footerDirectLink" href="https://github.com/daemon527/friday-app/releases/latest">Direct APK</a>
       </div>
     </div>
   </footer>
 
   <script>
     const demos = {
+      bangla: {
+        mode: "BILINGUAL VOICE",
+        quote: "“রিকশা ভাড়া ৫০ টাকা আর রাত ৮টায় পড়ার রিমাইন্ডার দাও”",
+        tag: "2 ACTIONS EXECUTED",
+        main: "৳ 50 Transport + 8:00 PM Alarm",
+        sub: "Rickshaw fare logged · Study reminder scheduled for today",
+        reply: "“৫০ টাকা খরচ সেভ করেছি এবং রাত ৮টার রিমাইন্ডার সেট হয়েছে।”"
+      },
       expense: {
-        quote: "“I spent 50 taka on rickshaw fare”",
+        mode: "TAKA EXPENSE",
+        quote: "“I spent 120 taka on lunch and tea”",
         tag: "EXPENSE",
-        main: "৳ 50 · Transport",
-        sub: "Note: Rickshaw fare · Today",
-        reply: "“Added 50 taka expense on Transport.”"
+        main: "৳ 120 · Food",
+        sub: "Note: Lunch and tea · Today · Safe daily budget updated",
+        reply: "“Added 120 taka expense on Food.”"
       },
       alarm: {
-        quote: "“Remind me to submit my report at 7 PM”",
+        mode: "SPEAKING ALARM",
+        quote: "“Remind me to submit my assignment at 7 PM”",
         tag: "SPEAKING ALARM",
-        main: "Submit my report",
-        sub: "Today at 7:00 PM · Voice Alert",
-        reply: "“Reminder set for submit my report, 7 PM.”"
+        main: "Submit my assignment",
+        sub: "Today at 7:00 PM · Announces out loud when due",
+        reply: "“Reminder set for submit my assignment at 7 PM.”"
       },
-      goal: {
-        quote: "“Start a 30-day goal to read 20 pages daily”",
-        tag: "30-DAY GOAL",
-        main: "Read 20 pages daily",
-        sub: "Day 1 of 30 · Daily Habit Active",
-        reply: "“Started 30 day goal, daily habit created.”"
+      coach: {
+        mode: "ADAPTIVE COACH",
+        quote: "“Can I afford a 500 taka dinner tonight?”",
+        tag: "LIVE BUDGET CHECK",
+        main: "Safe Daily Allowance: ৳ 380",
+        sub: "Spent ৳ 170 today · 30-day savings target active",
+        reply: "“You’re slightly tight today—try keeping dinner around 250 taka to stay on pace.”"
       }
     };
 
+    const i18n = {
+      en: {
+        navFeatures: "Features",
+        navSecurity: "Security",
+        navInstall: "Install",
+        heroTitle: 'Speak once.<br /><span class="accent-word">Everything’s</span> logged.',
+        heroSub: "A hands-free Bangla & English Android voice assistant and adaptive life coach—log ৳ Taka expenses, set speaking alarms, and track habits straight from your Bluetooth earbuds.",
+        howToInstall: "How to install",
+        downloadLabel: "Download Friday APK",
+        pillSigned: "Signed Official APK",
+        pillEncrypted: "AES-256 Encrypted DB",
+        pillPrivacy: "BYOK · Zero Data Training",
+        featKicker: "Capabilities",
+        featTitle: "Built for real-world speed in Bangladesh.",
+        f1Title: "Lock-Screen Earbud Control",
+        f1Desc: "Double-tap your Bluetooth earbuds to log commands while your phone stays locked in your pocket, with clear voice replies.",
+        f2Title: "Full বাংলা & English",
+        f2Desc: "Speak naturally in Bangladeshi Bangla, English, or mixed Banglish—and run up to 5 actions from a single sentence.",
+        f3Title: "Speaking Alarms & Namaz",
+        f3Desc: "Voice reminders that announce your task out loud when due, alongside BDT budget tracking, daily namaz, and 30-day goals.",
+        f4Title: "Adaptive Life Coach",
+        f4Desc: "Remembers your routine, safe daily budget, and energy clock privately on-device to answer real-life questions in seconds.",
+        secKicker: "Trust & Verification",
+        secTitle: "Signed, verifiable, and private by architecture.",
+        s1Title: "AES-256 On-Device Vault",
+        s1Desc: "All expenses, schedules, and learned memories stay encrypted on your phone with SQLCipher AES-256 and Android Hardware Keystore.",
+        s2Title: "Official Release Signature Lock",
+        s2Desc: "Distributed directly from GitHub Releases and verified via APK SHA-256 signature checks so tampered or repacked builds cannot run.",
+        s3Title: "BYOK Privacy Promise",
+        s3Desc: "Connect your own free Groq API key. Your personal data is never sold, never logged on a middleman database, and never used for AI training.",
+        instKicker: "Quick Setup",
+        instTitle: "Install in under a minute.",
+        st1Title: "Get the signed APK",
+        st1Desc: "Tap <strong>Download Friday APK</strong> above. Because Friday is distributed directly from GitHub Releases outside the Play Store, tap <strong>Download anyway</strong> if Chrome shows its standard APK notice.",
+        st2Title: "Allow installation once",
+        st2Desc: "Open the downloaded file and allow <strong>Install unknown apps</strong> for your browser once. Future updates install smoothly over the app while keeping all your encrypted data.",
+        st3Title: "Complete 4-step wizard",
+        st3Desc: "Choose English or বাংলা, add your free <strong>Groq API Key</strong>, and tap the launch <strong>Promo Code</strong> (or enter your License Key) on Step 4 to unlock hands-free voice immediately.",
+        batteryTip: "<strong>Recommended for Xiaomi, Realme, Oppo, Vivo &amp; OnePlus:</strong> Set Friday’s Battery mode to <strong>Unrestricted</strong> in Android App Info so speaking alarms and background earbud commands stay instant."
+      },
+      bn: {
+        navFeatures: "ফিচার",
+        navSecurity: "নিরাপত্তা",
+        navInstall: "ইনস্টল গাইড",
+        heroTitle: 'একবার বলুন।<br /><span class="accent-word">সবকিছু</span> সেভ হবে।',
+        heroSub: "বাংলাদেশের জন্য তৈরি হ্যান্ডস-ফ্রি বাংলা ও ইংরেজি অ্যান্ড্রয়েড ভয়েস অ্যাসিস্ট্যান্ট—ব্লুটুথ ইয়ারবাড থেকেই টাকার হিসাব, স্পিকিং এলার্ম, নামাজ ও দৈনন্দিন লক্ষ্য ট্র্যাক করুন।",
+        howToInstall: "ইনস্টল করার নিয়ম",
+        downloadLabel: "Friday APK ডাউনলোড করুন",
+        pillSigned: "সাইনড অফিসিয়াল APK",
+        pillEncrypted: "AES-256 এনক্রিপ্টেড ডেটা",
+        pillPrivacy: "BYOK · ডেটা ট্রেনিং নেই",
+        featKicker: "সক্ষমতা",
+        featTitle: "বাস্তব জীবনের গতির জন্য তৈরি।",
+        f1Title: "লক-স্ক্রিন ইয়ারবাড কন্ট্রোল",
+        f1Desc: "ফোন পকেটে লক থাকা অবস্থাতেই ব্লুটুথ ইয়ারবাডে ডাবল-ট্যাপ করে ভয়েস কমান্ড দিন এবং সাথে সাথে ভয়েস রিপ্লাই শুনুন।",
+        f2Title: "সম্পূর্ণ বাংলা ও ইংরেজি",
+        f2Desc: "স্বাভাবিক বাংলা, ইংরেজি বা বাংলিশে কথা বলুন—একই বাক্যে সর্বোচ্চ ৫টি কাজ (খরচ, মিটিং, এলার্ম) একসাথে সম্পন্ন হবে।",
+        f3Title: "স্পিকিং এলার্ম ও নামাজ",
+        f3Desc: "সময় হলেই এলার্ম নিজে কথা বলে মনে করিয়ে দেবে, সাথে থাকছে টাকার বাজেট, দৈনন্দিন নামাজ ও ৩০ দিনের গোল ট্র্যাকিং।",
+        f4Title: "অ্যাডাপ্টিভ লাইফ কোচ",
+        f4Desc: "আপনার রুটিন, দৈনিক খরচ ও কাজের অভ্যাস ফোনেই গোপন রেখে প্রয়োজনে দ্রুত ব্যক্তিগত পরামর্শ দেয়।",
+        secKicker: "বিশ্বাস ও যাচাইকরণ",
+        secTitle: "সাইনড, যাচাইযোগ্য এবং সম্পূর্ণ প্রাইভেট।",
+        s1Title: "AES-256 অন-ডিভাইস ভল্ট",
+        s1Desc: "আপনার সব হিসাব, রিমাইন্ডার এবং মেমোরি SQLCipher AES-256 ও Android Hardware Keystore দিয়ে ফোনেই এনক্রিপ্টেড থাকে।",
+        s2Title: "অফিসিয়াল সিগনেচার লক",
+        s2Desc: "সরাসরি GitHub Releases থেকে প্রকাশিত এবং APK SHA-256 সিগনেচার চেকযুক্ত, যাতে কোনো মডিফায়েড বা নকল ফাইল চলতে না পারে।",
+        s3Title: "BYOK প্রাইভেসি গ্যারান্টি",
+        s3Desc: "নিজের ফ্রি Groq API Key ব্যবহার করুন। আপনার ব্যক্তিগত ডেটা কখনো বিক্রি করা হয় না বা কোনো AI ট্রেনিংয়ে ব্যবহার হয় না।",
+        instKicker: "সহজ সেটআপ",
+        instTitle: "এক মিনিটের কম সময়ে ইনস্টল করুন।",
+        st1Title: "সাইনড APK ডাউনলোড করুন",
+        st1Desc: "উপরের <strong>Friday APK ডাউনলোড করুন</strong> বাটনে ট্যাপ করুন। প্লে স্টোরের বাইরে থেকে ডাউনলোড হওয়ায় Chrome সতর্কতা দেখালে <strong>Download anyway</strong> ট্যাপ করুন।",
+        st2Title: "একবার ইনস্টল অনুমতি দিন",
+        st2Desc: "ডাউনলোড করা ফাইলটি ওপেন করে ব্রাউজারের জন্য <strong>Install unknown apps</strong> চালু করুন। পরবর্তী আপডেটে আপনার কোনো ডেটা হারাবে না।",
+        st3Title: "৪ ধাপের সেটআপ শেষ করুন",
+        st3Desc: "বাংলা বা ইংরেজি ভাষা বেছে নিন, আপনার ফ্রি <strong>Groq API Key</strong> দিন এবং ধাপ ৪-এ লঞ্চ <strong>Promo Code</strong> ট্যাপ করে সাথে সাথে চালু করুন।",
+        batteryTip: "<strong>Xiaomi, Realme, Oppo, Vivo ও OnePlus ব্যবহারকারীদের জন্য:</strong> Android App Info থেকে Friday-এর Battery অপশন <strong>Unrestricted</strong> করে রাখুন, এতে স্পিকিং এলার্ম ও ইয়ারবাড কমান্ড সবসময় তৎক্ষণাৎ কাজ করবে।"
+      }
+    };
+
+    let currentLang = "en";
+    let latestTag = "v1.1.1";
+
     const buttons = document.querySelectorAll(".demo-pill");
+    const modeEl = document.getElementById("demoModeLabel");
     const quoteEl = document.getElementById("demoQuote");
     const tagEl = document.getElementById("demoTag");
     const mainEl = document.getElementById("demoMain");
@@ -976,9 +1383,10 @@
       const d = demos[key];
       if (!d) return;
       buttons.forEach(b => b.classList.toggle("active", b.dataset.demo === key));
-      quoteEl.style.opacity = "0.25";
-      cardEl.style.opacity = "0.25";
+      quoteEl.style.opacity = "0.2";
+      cardEl.style.opacity = "0.2";
       setTimeout(() => {
+        modeEl.textContent = d.mode;
         quoteEl.textContent = d.quote;
         tagEl.textContent = d.tag;
         mainEl.textContent = d.main;
@@ -986,11 +1394,34 @@
         replyEl.textContent = d.reply;
         quoteEl.style.opacity = "1";
         cardEl.style.opacity = "1";
-      }, 130);
+      }, 120);
     }
 
-    buttons.forEach(btn => {
-      btn.addEventListener("click", () => showDemo(btn.dataset.demo));
+    buttons.forEach(btn => btn.addEventListener("click", () => showDemo(btn.dataset.demo)));
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      const dict = i18n[lang] || i18n.en;
+      document.body.classList.toggle("lang-bn", lang === "bn");
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key] !== undefined) {
+          el.innerHTML = dict[key];
+        }
+      });
+
+      document.getElementById("downloadBtnText").textContent = dict.downloadLabel;
+      document.getElementById("navVersionText").textContent = (lang === "bn" ? "ডাউনলোড " : "Get ") + latestTag;
+    }
+
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.dataset.lang));
     });
 
     (async function loadLatestRelease() {
@@ -1001,18 +1432,27 @@
         const apk = (release.assets || []).find(a => a.name && a.name.toLowerCase().endsWith(".apk"));
         if (!apk || !apk.browser_download_url) return;
 
-        const tag = release.tag_name || "v1.0.0";
+        latestTag = release.tag_name || latestTag;
         const sizeMb = (apk.size / (1024 * 1024)).toFixed(2);
         const url = apk.browser_download_url;
+        const published = release.published_at
+          ? new Date(release.published_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+          : "";
 
-        document.getElementById("versionPill").textContent = "PRIVATE BETA · " + tag;
-        document.getElementById("navVersionText").textContent = "Get " + tag;
-        document.getElementById("downloadBtnText").textContent = "Download Friday APK (" + tag + ")";
+        document.getElementById("versionPill").textContent = "VERIFIED RELEASE · " + latestTag + " · EN & বাংলা";
+        document.getElementById("downloadBadge").textContent = latestTag;
+        document.getElementById("navVersionText").textContent = (currentLang === "bn" ? "ডাউনলোড " : "Get ") + latestTag;
         document.getElementById("downloadBtn").href = url;
         document.getElementById("navDownloadBtn").href = url;
         document.getElementById("footerDirectLink").href = url;
+
+        if (release.html_url) {
+          document.getElementById("releaseNotesLink").href = release.html_url;
+        }
+
         document.getElementById("fileMeta").innerHTML =
-          "<span>" + sizeMb + " MB</span><span>·</span><span>Android 8.0+</span><span>·</span><span>Direct Signed APK</span>";
+          "<span>" + sizeMb + " MB</span><span>·</span><span>Android 8.0+</span><span>·</span><span>Signed Official APK</span>" +
+          (published ? "<span>·</span><span>Updated " + published + "</span>" : "");
       } catch (_) {}
     })();
   </script>
