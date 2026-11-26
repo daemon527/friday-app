@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <title>Privacy Policy — Friday Personal Assistant</title>
+  <style>
+    :root {
+      --bg: #F5F5F0;
+      --surface: #FFFFFF;
+      --ink: #0F1115;
+      --muted: #525866;
+      --border: #E2E2DA;
+      --accent: #FF5500;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+      padding: 32px 16px 64px;
+    }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 28px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    h1 { font-size: 28px; line-height: 1.25; margin-bottom: 8px; }
+    .meta { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+    h2 {
+      font-size: 18px;
+      margin-top: 28px;
+      margin-bottom: 10px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+    p, li { font-size: 15px; color: #242933; margin-bottom: 10px; }
+    ul { padding-left: 20px; margin-bottom: 12px; }
+    code {
+      background: #F1F1EC;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-size: 13.5px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .footer {
+      margin-top: 32px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="badge">Friday Personal Assistant</div>
+    <h1>Privacy Policy</h1>
+    <p class="meta">
+      Effective Date: November 26, 2026 · Package ID: <code>com.jubairsaadi.friday</code> · Developer: Jubair Islam Saadi
+    </p>
+
+    <p>
+      Friday Personal Assistant (<strong>"Friday"</strong>) is a privacy-first, ad-free personal voice assistant for Android. This policy explains what data the app accesses, how it is processed, and how you stay in full control of your information.
+    </p>
+
+    <h2>1. Local-First Encrypted Storage</h2>
+    <p>
+      Your expenses, income logs, schedules, reminders, 30-day goals, daily habits, and reviews are stored <strong>locally on your device</strong> inside an AES-256 encrypted SQLCipher database. Your Groq API keys, app preferences, and personalized assistant context are stored locally using Android Hardware Keystore encryption (AES-256-GCM). We do not store your personal logs, financial records, or voice recordings on any cloud database.
+    </p>
+
+    <h2>2. Microphone &amp; Voice Processing (Bring Your Own Key)</h2>
+    <ul>
+      <li><strong>Manual activation only:</strong> Friday accesses your device microphone (<code>RECORD_AUDIO</code>) strictly when you tap the microphone button, home-screen widget, or earbud trigger. It never passively listens or records in the background.</li>
+      <li><strong>BYOK architecture:</strong> Voice audio and command text are transmitted securely over HTTPS through our stateless gateway directly to <strong>Groq</strong> using your own personal Groq API key for real-time speech transcription, command parsing, and optional live web lookups. Audio clips are processed in real time and are never saved or logged on our servers.</li>
+      <li><strong>On-device speech option:</strong> When Bengali phone-mic recognition is selected, Android's built-in SpeechRecognizer may transcribe speech prior to command parsing.</li>
+    </ul>
+
+    <h2>3. Network Requests &amp; Third-Party Services</h2>
+    <ul>
+      <li><strong>Groq API:</strong> Used with your own API key to transcribe speech, parse assistant actions (expenses, reminders, habits, schedules), and answer live queries.</li>
+      <li><strong>Aladhan Prayer Times API:</strong> Used to retrieve daily Hanafi prayer timings when you request Namaz schedules or alarms. No personal identity is sent.</li>
+      <li><strong>Activation &amp; App Integrity Verification:</strong> A lightweight check verifies app version compatibility, activation status, and APK signature integrity to protect against tampered builds.</li>
+    </ul>
+
+    <h2>4. Android Permissions We Use &amp; Why</h2>
+    <ul>
+      <li><strong>Microphone (<code>RECORD_AUDIO</code>):</strong> Captures voice commands when manually activated.</li>
+      <li><strong>Exact Alarms, Notifications &amp; Full-Screen Intent:</strong> Delivers reliable speaking reminders and daily prayer alarms even when the screen is locked.</li>
+      <li><strong>Bluetooth (Optional):</strong> Routes voice input and spoken TTS responses through connected Bluetooth earbuds.</li>
+      <li><strong>Clipboard (Setup Wizard Only):</strong> Detects a copied <code>gsk_</code> Groq API key during initial setup to reduce manual typing. Clipboard contents are never transmitted to our servers.</li>
+    </ul>
+
+    <h2>5. Encrypted Backups</h2>
+    <p>
+      When you manually export a <code>.pabak</code> backup file, it is encrypted with a password you choose. You control where that file is saved; Friday never uploads your backups automatically.
+    </p>
+
+    <h2>6. Zero Ads, Zero Tracking, Zero Data Selling</h2>
+    <p>
+      Friday contains <strong>no advertisements, no ad SDKs, no third-party analytics trackers, and no data brokers</strong>. We never sell, rent, or trade user data.
+    </p>
+
+    <h2>7. Data Deletion &amp; User Control</h2>
+    <p>
+      Because all personal records reside locally on your phone, you can permanently erase everything at any time by clearing app data in Android Settings or uninstalling Friday. You can also revoke or rotate your Groq API key anytime from the Groq Console.
+    </p>
+
+    <h2>8. Children's Privacy</h2>
+    <p>
+      Friday is not directed to children under 13 years of age and does not knowingly collect personal information from children.
+    </p>
+
+    <h2>9. Contact</h2>
+    <p>
+      For questions about this Privacy Policy or Friday's security practices, contact:
+      <br />
+      <strong>Jubair Islam Saadi</strong> · <a href="mailto:saadisaadi048@gmail.com">YOUR_EMAIL@gmail.com</a>
+    </p>
+
+    <div class="footer">
+      <a href="https://daemon527.github.io/friday-app/">← Back to Friday Official Download Page</a>
+    </div>
+  </main>
+</body>
+</html>
